@@ -17,6 +17,10 @@ export function SignIn() {
     await axios.post('/sessions', {
       email: 'vitor1908@gmail.com',
       password: '123456'
+    }, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }
     })
 
     setIsUserSignedIn(true);
