@@ -1,13 +1,20 @@
 import { themes } from '@storybook/theming'
-import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { initialize, mswDecorator } from 'msw-storybook-addon'
 
 import '../src/styles/global.css'
 
-initialize({
-  onUnhandledRequest: 'bypass'
-});
+const isDevelopment = window.CONFIG_TYPE === 'DEVELOPMENT'
 
-export const decorators = [mswDecorator];
+initialize({
+  onUnhandledRequest: 'bypass',
+  serviceWorker: {
+    url: isDevelopment
+      ? 'mockServiceWorker.js'
+      : '/lab-design-system/mockServiceWorker.js',
+  },
+})
+
+export const decorators = [mswDecorator]
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
